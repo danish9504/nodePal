@@ -1,30 +1,16 @@
 const express = require('express');
 const app = express();
-
 const PORT = 3000;
 
+// Import the payment routes
+const paymentRoutes = require('./routes/paymentRoutes');
 
-app.get('/payment/get-all', (req, res) => {
-    // Placeholder for payments; eventually, this would be populated from a database
-    const payments = []; // Assume this will hold payment data
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-    res.status(200).json({
-        message: 'Successfully retrieved all payments',
-        payments // Returns an empty array for now, can be populated later
-    });
-});
+// Use the payment routes
+app.use('/payment', paymentRoutes);
 
-
-app.get('payment/create-payment',(req,res)=>{
-    res.status(201).json({
-        status:'ok',
-        message: 'server is working fine'
-    })
-})
-
-
-
-
-app.listen(PORT, ()=>{
-    console.log(`server is started on ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server is started on ${PORT}`);
 });
